@@ -4,7 +4,7 @@ This is a Unity editor tool made for my bachelor's thesis, commissioned by Menta
 
 The tool's basic purpose is to generate sub edges inside areas determined by the user. The user creates nodes and edges that are processed into primitives using minimal cycle extraction. Sub edges are then generated inside the primitives using space colonization.
 
-Detailed description of the tool is included in the thesis report *(not yet released, added later)*.
+Detailed description of the tool is included in the thesis report found [here](http://urn.fi/URN:NBN:fi:amk-201602232560).
 
 **The project includes the EdgeGraph tool (explained below) and a general L-System.**
 
