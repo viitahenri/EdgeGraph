@@ -170,26 +170,6 @@ namespace EdgeGraph
             m_visitedTargets.Add(closest);
         }
 
-        //Round orientation to closest multiply of angle
-        //void RoundOrientation(Vector3 _currentPos, ref Vector3 _currentDir)
-        //{
-        //    if (m_minAngle == 0f) return;
-
-        //    float currentOrientation = Vector3.Angle(Vector3.forward, _currentDir);
-
-        //    float a = currentOrientation / m_minAngle;
-        //    a = Mathf.Floor(a);
-        //    currentOrientation = a * m_minAngle;
-
-        //    //Angle variance
-        //    currentOrientation = UnityEngine.Random.Range(currentOrientation - m_angleVariance, currentOrientation + m_angleVariance);
-
-        //    float newX = _currentPos.x + Mathf.Cos(Mathf.Deg2Rad * currentOrientation);
-        //    float newZ = _currentPos.z + Mathf.Sin(Mathf.Deg2Rad * currentOrientation);
-
-        //    _currentDir = (new Vector3(newX, 0f, newZ) - _currentPos).normalized;
-        //}
-
         /// <summary>
         /// Advances forward by segmentLength from current node
         /// </summary>
@@ -354,62 +334,7 @@ namespace EdgeGraph
             AdvanceUntilClosest(ref m_currentNode, currentTarget, toClosest);
         }
 
-        ///// <summary>
-        ///// Goes through all the built edges and finds intersections
-        ///// If intersections are found, splits both edges in the intersection point
-        ///// </summary>
-        //void FixIntersectingEdges()
-        //{
-        //    EdgeGraphUtility.CleanUpEdges(ref nodes, ref edges);
-
-        //    int limit = edges.Count;
-        //    for (int i = 0; i < edges.Count; i++)
-        //    {
-        //        if (i > limit) break;
-
-        //        Vector3 intersectPoint = Vector3.zero;
-
-        //        Node n1 = Node.GetNode(nodes, edges[i].Node1);
-        //        Node n2 = Node.GetNode(nodes, edges[i].Node2);
-
-        //        if (n1 == null || n2 == null) continue;
-
-        //        Vector2 node1XZ = new Vector2(n1.Position.x, n1.Position.z);
-        //        Vector2 node2XZ = new Vector2(n2.Position.x, n2.Position.z);
-
-        //        for (int j = 0; j < edges.Count; j++)
-        //        {
-        //            if (i == j) continue;
-
-        //            Node otherN1 = Node.GetNode(nodes, edges[j].Node1);
-        //            Node otherN2 = Node.GetNode(nodes, edges[j].Node2);
-
-        //            if (otherN1 == null || otherN2 == null || 
-        //                otherN1.adjacents.Contains(n1.ID) || 
-        //                otherN2.adjacents.Contains(n1.ID) || 
-        //                otherN1.adjacents.Contains(n2.ID) || 
-        //                otherN2.adjacents.Contains(n2.ID))
-        //            {
-        //                continue;
-        //            }
-
-        //            Vector2 otherN1XZ = new Vector2(otherN1.Position.x, otherN1.Position.z);
-        //            Vector2 otherN2XZ = new Vector2(otherN2.Position.x, otherN2.Position.z);
-
-        //            Vector3 intersectPointXZ;
-
-        //            if (MentalTools.LineHelper.AreIntersecting(out intersectPointXZ, node1XZ, node2XZ, otherN1XZ, otherN2XZ) == 1)
-        //            {
-        //                intersectPoint = new Vector3(intersectPointXZ.x, otherN1.Position.y, intersectPointXZ.y);
-        //                Node intersectNode = Edge.SplitEdge(edges[i], intersectPoint, nodes, edges);
-        //                Edge.SplitEdge(edges[j], intersectPoint, nodes, edges, intersectNode);
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-
-        #region Colonization
+        #region Traditional Space Colonization
 
         void ColonizeSpaceRecursive(int limit = 0)
         {
@@ -496,8 +421,6 @@ namespace EdgeGraph
                 {
                     Vector3 avgDirection = m_nodeGrowDirections[nodeID] / (float)m_nodeGrowCounts[nodeID];
                     avgDirection.Normalize();
-
-                    //RoundOrientation(nodes[i].Position, ref avgDirection);
 
                     Node newNode = new Node(nodes[i].Position);
                     nodes.Add(newNode);
